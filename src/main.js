@@ -79,5 +79,6 @@ var prev_teamNum = 0;
 load(display);
 
 setInterval(function(){
+    console.log('Interval');
     load(display);
 }, 3000);
