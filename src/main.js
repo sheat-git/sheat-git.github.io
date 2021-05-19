@@ -10,9 +10,15 @@ function getParam(name, url) {
 
 function load(dp){
     const user = getParam('user');
-    fetch(`https://raw.githubusercontent.com/sheat-git/sheat-git.github.io/main/src/user/${user}/import.js`).then(r=>{return r.text()}).then(t=>{
-        eval(t);
-        dp(l);
+    fetch('https://script.google.com/macros/s/AKfycbyrF4hOZNT8XiYkkISJfufyYs-O77d3KyXCyZiT6R1vLhPBflMhtGlPfgdXMHWXFqLu/exec').then(r=>{return r.json()}).then(function(jsonData){
+        for(let i=0; i<30; i++){
+            if(jsonData[i].user === user){
+                const l = jsonData[i];
+                console.log(l);
+                dp(l);
+                break;
+            }
+        }
     });
     return 0;
 }
@@ -74,10 +80,18 @@ function display(l){
     });
 }
 
+
 var teamNum = 0;
 var prev_teamNum = 0;
+var interval;
 load(display);
 
-setInterval(function(){
+
+intervalId = setInterval(function(){
+    console.log('Interval');
     load(display);
-}, 3000);
+}, 10000);
+
+setTimeout(function(){
+    clearInterval(intervalId);
+}, 500000);
