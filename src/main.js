@@ -72,6 +72,7 @@ function display(l){
             $span.style.setProperty('transform', `translateX(${translateX}px) scaleX(${scaleX})`);
         });
     });
+    console.log('show');
 }
 
 var teamNum = 0;
