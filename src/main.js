@@ -72,7 +72,6 @@ function display(l){
             $span.style.setProperty('transform', `translateX(${translateX}px) scaleX(${scaleX})`);
         });
     });
-    console.log('show');
 }
 
 var teamNum = 0;
@@ -80,6 +79,5 @@ var prev_teamNum = 0;
 load(display);
 
 setInterval(function(){
-    console.log('Interval');
     load(display);
 }, 3000);
