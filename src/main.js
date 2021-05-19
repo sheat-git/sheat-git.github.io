@@ -10,20 +10,25 @@ function getParam(name, url) {
 
 function load(dp){
     const user = getParam('user');
-    console.log(user);
     fetch(`src/user/${user}/import.js`).then(r=>{return r.text()}).then(t=>{
         eval(t);
         dp(l);
     });
+    return 0;
 }
 
 function display(l){
     const teams = l.teams;
-    const teamNum = teams.length;
     const scores = l.scores;
     const left = l.left;
     const dif = l.dif;
     const win = l.win;
+    teamNum = teams.length;
+    if(prev_teamNum === 0){
+        prev_teamNum = teamNum;
+    }else if(!(prev_teamNum === teamNum) && !(teamNum === 0)){
+        location.reload();
+    }
     document.getElementById(`team-num-${teamNum}`).style.setProperty('display', 'flex');
     document.querySelectorAll(`#team-num-${teamNum}`).forEach($container => {
         if (teamNum === 2) {
@@ -69,4 +74,10 @@ function display(l){
     });
 }
 
+var teamNum = 0;
+var prev_teamNum = 0;
 load(display);
+
+setInterval(function(){
+    load(display);
+}, 3000);
