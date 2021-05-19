@@ -10,7 +10,7 @@ function getParam(name, url) {
 
 function load(dp){
     const user = getParam('user');
-    fetch(`src/user/${user}/import.js`).then(r=>{return r.text()}).then(t=>{
+    fetch(`https://raw.githubusercontent.com/sheat-git/sheat-git.github.io/main/src/user/${user}/import.js`).then(r=>{return r.text()}).then(t=>{
         eval(t);
         dp(l);
     });
