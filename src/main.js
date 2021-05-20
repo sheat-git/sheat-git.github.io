@@ -10,8 +10,8 @@ function getParam(name, url) {
 
 function load(dp){
     const user = getParam('user');
-    fetch('https://script.google.com/macros/s/AKfycbyrF4hOZNT8XiYkkISJfufyYs-O77d3KyXCyZiT6R1vLhPBflMhtGlPfgdXMHWXFqLu/exec').then(r=>{return r.json()}).then(function(jsonData){
-        for(let i=0; i<30; i++){
+    fetch('https://script.google.com/macros/s/AKfycbzNDqbUg9e-98THpcs8vYouKQMqs9A8216hTkE2SJmNLEy24WxcHUiF9c0J8YqLx7Dw/exec').then(r=>{return r.json()}).then(function(jsonData){
+        for(let i=0; i<200; i++){
             if(jsonData[i].user === user){
                 const l = jsonData[i];
                 console.log(l);
@@ -90,7 +90,7 @@ load(display);
 intervalId = setInterval(function(){
     console.log('Interval');
     load(display);
-}, 10000);
+}, 5000);
 
 setTimeout(function(){
     clearInterval(intervalId);
