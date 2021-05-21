@@ -94,4 +94,4 @@ intervalId = setInterval(function(){
 
 setTimeout(function(){
     clearInterval(intervalId);
-}, 5000000);
+}, 20000000);
