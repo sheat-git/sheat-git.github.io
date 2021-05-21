@@ -90,7 +90,7 @@ load(display);
 intervalId = setInterval(function(){
     console.log('Interval');
     load(display);
-}, 5000);
+}, 7000);
 
 setTimeout(function(){
     clearInterval(intervalId);
