@@ -8,36 +8,34 @@ function getParam(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function load(dp){
+function loadAPI(dp){
     const user = getParam('user');
-    fetch('https://script.google.com/macros/s/AKfycbzNDqbUg9e-98THpcs8vYouKQMqs9A8216hTkE2SJmNLEy24WxcHUiF9c0J8YqLx7Dw/exec').then(r=>{return r.json()}).then(function(jsonData){
-        for(let i=0; i<200; i++){
-            if(jsonData[i].user === user){
-                const l = jsonData[i];
-                console.log(l);
-                dp(l);
-                break;
-            }
-        }
+    fetch(`https://mksokuji-default-rtdb.firebaseio.com/user/${user}.json`).then(r=>{return r.json()}).then(function(jsonData){
+        dp(jsonData);
     });
     return 0;
 }
 
-function display(l){
+function reflectSokuji(l){
     const teams = l.teams;
     const scores = l.scores;
-    const left = l.left;
-    const dif = l.dif;
-    const win = l.win;
+    left = l.left;
     teamNum = teams.length;
-    if(prev_teamNum === 0){
+    if(prev_teamNum === -1){
         prev_teamNum = teamNum;
-    }else if(!(prev_teamNum === teamNum) && !(teamNum === 0)){
+    }else if(!(prev_teamNum === teamNum) && !(teamNum === -1) && !(teamNum === 0)){
         location.reload();
+    }
+    if(prev_left === 0 && !(left === 0)){
+        location.reload()
+    }else{
+        prev_left = left;
     }
     document.getElementById(`team-num-${teamNum}`).style.setProperty('display', 'flex');
     document.querySelectorAll(`#team-num-${teamNum}`).forEach($container => {
         if (teamNum === 2) {
+            const dif = l.dif;
+            const win = l.win;
             $container.querySelectorAll('.score').forEach(($score, i) => {
                 $score.innerText = scores[i];
             });
@@ -81,17 +79,18 @@ function display(l){
 }
 
 
-var teamNum = 0;
-var prev_teamNum = 0;
+var teamNum = -1;
+var prev_teamNum = -1;
+var left = -1;
+var prev_left = -1;
 var interval;
-load(display);
+loadAPI(reflectSokuji);
 
 
 intervalId = setInterval(function(){
-    console.log('Interval');
-    load(display);
-}, 7000);
+    loadAPI(reflectSokuji);
+}, 5000);
 
 setTimeout(function(){
     clearInterval(intervalId);
-}, 20000000);
+}, 60000000);
