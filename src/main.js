@@ -43,6 +43,9 @@ function reflectSokuji(l){
                 $team.innerText = teams[i];
             });
             $container.querySelectorAll('.score-dif').forEach(($dif, i) => {
+                $dif.classList.remove('plus');
+                $dif.classList.remove('minus');
+                $dif.classList.add((dif.startsWith('+')) ? 'plus' : 'minus');
                 $dif.innerText = dif;
             });
             $container.querySelectorAll('.win').forEach(($win, i) => {
