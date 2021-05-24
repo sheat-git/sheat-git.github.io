@@ -8,10 +8,10 @@ function getParam(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function loadAPI(dp){
+function loadAPI(rS){
     const user = getParam('user');
     fetch(`https://mksokuji-default-rtdb.firebaseio.com/user/${user}.json`).then(r=>{return r.json()}).then(function(jsonData){
-        dp(jsonData);
+        rS(jsonData);
     });
     return 0;
 }
