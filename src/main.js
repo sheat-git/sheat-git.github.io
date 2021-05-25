@@ -23,10 +23,12 @@ function reflectSokuji(l){
     teamNum = teams.length;
     if(prev_teamNum === -1){
         prev_teamNum = teamNum;
-    }else if(!(prev_teamNum === teamNum) && !(teamNum === -1) && !(teamNum === 0)){
+    }else if(!(prev_teamNum === teamNum) && !(teamNum === -1)){
         location.reload();
     }
     if(prev_left === 0 && !(left === 0)){
+        location.reload()
+    }else if(prev_left - left > 1){
         location.reload()
     }else{
         prev_left = left;
